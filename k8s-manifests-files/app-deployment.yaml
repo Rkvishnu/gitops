@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-app
+  template:
+    metadata:
+      labels:
+        app: demo-app
+    spec:
+      containers:
+        - name: demo-appcontainer
+          image: docker.io/rkvishnu77/demo-web:latest
+          env:
+            - name: RAILS_ENV
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: RAILS_ENV
+            - name: POSTGRES_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: POSTGRES_HOST
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: POSTGRES_PASSWORD
+            - name: RAILS_MASTER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: RAILS_MASTER_KEY
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: app-storage
+              mountPath: /rails/storage
+      volumes:
+        - name: app-storage
+          emptyDir: {}
