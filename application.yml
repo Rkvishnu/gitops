@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: demo-app
+spec:
+  destination:
+    namespace: demo-app-namespace
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    repoURL: https://github.com/Rkvishnu/rails-app-makerble.git
+    path: k8s-manifests-files
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
