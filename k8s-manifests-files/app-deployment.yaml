@@ -41,11 +41,11 @@ spec:
                 secretKeyRef:
                   name: postgres-secrets
                   key: POSTGRES_PASSWORD
-            - name: RAILS_MASTER_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secrets
-                  key: RAILS_MASTER_KEY
+            # - name: RAILS_MASTER_KEY
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: postgres-secrets
+            #       key: RAILS_MASTER_KEY
           ports:
             - containerPort: 3000
           volumeMounts:
