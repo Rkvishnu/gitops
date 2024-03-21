@@ -1,15 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: demo-app
+  name: react-app
 spec:
   destination:
-    namespace: demo-app-namespace
+    namespace: ai-planet
     server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: https://github.com/Rkvishnu/rails-app-makerble.git
-    path: k8s-manifests-files
+    repoURL: https://github.com/Rkvishnu/ai-planet.git
+    path: kubernetes
     targetRevision: main
   syncPolicy:
     automated:
